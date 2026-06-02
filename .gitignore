@@ -1,0 +1,8 @@
+testing_videos/*
+backend/cache/*
+results/*
+external_repos/*
+results
+__pycache__/
+*.pyc
+.DS_Store
