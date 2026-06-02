@@ -23,7 +23,7 @@ try:
     YOLO_AVAILABLE = True
 except ImportError:
     YOLO_AVAILABLE = False
-    logger.warning("ultralytics not installed — tracker will use mock detections")
+    logger.debug("ultralytics not installed — tracker will use mock detections")
 
 try:
     from boxmot import BYTETracker
@@ -35,7 +35,7 @@ except ImportError:
         BYTETRACK_AVAILABLE = True
     except ImportError:
         BYTETRACK_AVAILABLE = False
-        logger.warning("boxmot not installed — tracker will use YOLO tracking mode")
+        logger.debug("boxmot not installed — using YOLO built-in tracker")
 
 from config import settings
 from services.video_processor import VideoProcessor
