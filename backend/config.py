@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     TRACKING_FRAME_RATE: int = 1        # Process every frame for tracking
 
     # YOLO
-    YOLO_MODEL: str = "yolo11n.pt"      # nano for speed; swap to yolo11m.pt for accuracy
+    YOLO_MODEL: str = "yolo11m.pt"      # nano for speed; swap to yolo11m.pt for accuracy
     YOLO_CONF_THRESHOLD: float = 0.4
     YOLO_IOU_THRESHOLD: float = 0.5
 
