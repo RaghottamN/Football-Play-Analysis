@@ -30,7 +30,11 @@ async def lifespan(app: FastAPI):
     Path(settings.MODELS_DIR).mkdir(parents=True, exist_ok=True)
     logger.info(f"   Upload dir  : {settings.UPLOAD_DIR}")
     logger.info(f"   Results dir : {settings.RESULTS_DIR}")
-    logger.info(f"   CUDA available: {_cuda_status()}")
+    logger.info(f"   CUDA        : {_cuda_status()}")
+
+    # Pre-download YOLO model so it's cached before the first job
+    await asyncio.get_event_loop().run_in_executor(None, _preload_yolo_model)
+
     yield
     logger.info("⛔ Football Analytics Platform shutting down...")
 
@@ -41,6 +45,22 @@ def _cuda_status() -> str:
         return f"Yes ({torch.cuda.get_device_name(0)})" if torch.cuda.is_available() else "No (CPU mode)"
     except Exception:
         return "Unknown"
+
+
+def _preload_yolo_model():
+    """Download & cache the YOLO model weights at startup (runs once in thread pool)."""
+    try:
+        from ultralytics import YOLO
+        import logging
+        # Suppress ultralytics download chatter
+        logging.getLogger("ultralytics").setLevel(logging.ERROR)
+        model_name = settings.YOLO_MODEL
+        model_path = Path(settings.MODELS_DIR) / model_name
+        target = str(model_path) if model_path.exists() else model_name
+        YOLO(target)
+        logger.info(f"   YOLO model  : {model_name} — ready ✅")
+    except Exception as e:
+        logger.warning(f"   YOLO pre-load skipped: {e}")
 
 
 # ── Application factory ───────────────────────────────────────────────────────
