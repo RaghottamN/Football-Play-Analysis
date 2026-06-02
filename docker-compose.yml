@@ -18,7 +18,7 @@ services:
       - RESULTS_DIR=/app/results
       - MODELS_DIR=/app/models
       - MAX_VIDEO_DURATION_SEC=60
-      - YOLO_MODEL=yolo11n.pt
+      - YOLO_MODEL=yolo11m.pt
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
