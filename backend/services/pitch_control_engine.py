@@ -172,8 +172,6 @@ def generate_PPCF(target_position, attacking_players, defending_players, ball_st
             ptot = PPCF_att[i] + PPCF_def[i]
             i += 1
 
-        if i >= len(dT_array):
-            logger.warning(f"PPCF integration failed to converge: {ptot:.3f}")
         return PPCF_att[i-1], PPCF_def[i-1]
 
 
