@@ -1,5 +1,8 @@
 # ⚽ Football Analytics Platform
 
+<!-- dummy commit to verify attribution trailer setting -->
+
+
 > **Integrated Network and Pitch Control Modeling for Football Performance Analysis**
 
 A production-ready platform that accepts football video clips (up to 60 seconds) and automatically generates passing networks, pitch control maps, player influence metrics, and tactical insights.
